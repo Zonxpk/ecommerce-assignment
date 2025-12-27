@@ -1,0 +1,103 @@
+    Test Assignment — Software Enginner - Lead Engineer  
+Project: Affiliate Web App for Promotion & Marketplace Price Comparison (Lazada / 
+Shopee)  
+Company:  Jenosize – Digital Opportunity Creator  
+Format: GitHub Repo + README + Deployed Demo (User Test URL) + Optional Loom Video  
+Language:  English (Thai optional for UI text)  
+Time Allocation:  3–5 working days  
+Filename:  Jenosize_LeadEngineer_AffiliatePlatform_[YourName]  
+ 
+       Objective  
+Build a mini web app  that demonstrates your ability to:  
+1. Architect a scalable, clean, and modular web application.  
+2. Integrate or mock Lazada & Shopee product data  for price comparison.  
+3. Generate and track affiliate links  with analytics.  
+4. Deliver a working demo for real users to test (hosted URL).  
+This assignment tests your engineering thinking , not only coding. Focus on architecture, 
+quality, maintainability, and clarity . 
+ 
+       Core Features (MVP)  
+   1. Product & Price Comparison  
+• Allow admin to add products  using a Lazada/Shopee product URL or SKU.  
+• Fetch and display:  
+o Product title, image, store name, price.  
+o Show best price badge  between platforms.  
+• Use public APIs if available, or mock adapters  (JSON fixtures or simple scraping).  
+   2. Affiliate Link Generator  
+• Allow admin to create a Campaign  (name, start/end, UTM parameters).  
+• For each product, generate an affiliate short link  for Lazada or Shopee:  o Example: /go/abc123  redirects → marketplace URL + UTMs.  
+• Track all clicks with timestamp, campaign, and referrer.  
+     3. Promotion Landing Page  
+• Public landing page showing campaign products:  
+o Product image, price compare, Buy on Lazada/Shopee buttons.  
+o Clicking CTA triggers affiliate redirect and tracks click.  
+      4. Analytics Dashboard  
+• Admin panel to view:  
+o Click count per product, per campaign, per marketplace.  
+o CTR, top-performing products.  
+• (Optional bonus) Include simple charts or a leaderboard view.  
+ 
+    Engineering Requirements  
+Category  Expectation  
+Architecture  Clean modular design with clear boundaries (API / frontend / 
+adapters).  
+Tech Stack 
+(Recommended)  Next.js + Node/NestJS + Postgres + Redis (or your preferred 
+equivalents).  
+API Design  REST or GraphQL with schema/docs. Include /api/docs  or 
+Swagger/OpenAPI.  
+Data Entities  Product, Offer, Campaign, Link, Click (see sample below).  
+Background Job  Cron or worker to refresh prices periodically.  
+Security  .env config, input validation, secure redirects.  
+Testing  At least one unit + one integration test.  
+CI/CD  GitHub Actions: lint + test.  Category  Expectation  
+Documentation  README with setup guide, trade -offs, architecture diagram.  
+ 
+            Data Model Example  
+Entity  Key Fields  
+Product  id, title, image_url  
+Offer  id, product_id, marketplace, store_name, price, last_checked_at  
+Campaign  id, name, utm_campaign, start_at, end_at  
+Link  id, product_id, campaign_id, short_code, target_url  
+Click  id, link_id, timestamp, referrer, user_agent  
+ 
+    API Examples  
+Endpoint  Description  
+POST /api/products  Add new product (fetch or mock data).  
+GET /api/products/:id/offers  List offers and prices per marketplace.  
+POST /api/campaigns  Create a new campaign.  
+POST /api/links  Generate affiliate link for campaign.  
+GET /go/:short_code  Redirect + track click.  
+GET /api/dashboard  Return click stats by campaign/product.  
+ 
+       Submission Deliverables  
+        1. Source Code  
+• GitHub Repo with:  
+o /apps/api  (Backend)  o /apps/web  (Frontend)  
+o /packages/adapters  (Marketplace logic)  
+o /infra/docker -compose.yml  (Postgres + Redis)  
+• Well-organized commits & code readability.  
+ 
+  2. Live Demo (User Test URL)  
+Deploy your project to any public host for functional testing.  
+Example options:  
+• Vercel + Render + Supabase  
+• Railway + Fly.io + Cloudflare Pages  
+• AWS / GCP / Azure Free Tier  
+    Submit this link in your README:  
+Demo URL:  https://yourapp.vercel.app  
+Admin Access:  /admin  (if needed)  
+Sample Campaign:  “Summer  Deal 2025” 
+Test Product:  Shopee vs Lazada Matcha Powder  
+ 
+     3. Documentation  
+Provide a clear README.md  including:  
+• Setup instructions ( npm run dev , env setup, etc.)  
+• Architecture overview & diagram (PNG or Mermaid).  
+• Tech choices & reasoning.  
+• Future roadmap: what would you improve with more time.  
+ 
+      4. (Optional) Demo Video  
+Record a 3–10 min Loom or MP4  walkthrough:  • Add products → compare view → generate link → click redirect → dashboard.  
+• Explain your design decisions briefly.  
+ 
