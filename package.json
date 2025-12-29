@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run --prefix apps/web dev\" \"npm run --prefix apps/server dev\"",
     "dev:web": "npm run --prefix apps/web dev",
     "dev:server": "npm run --prefix apps/server dev",
-    "build": "npm run --prefix packages/db build && npm run --prefix apps/web build && npm run --prefix apps/server build",
+    "build": "npm run --prefix packages/shared build && npm run --prefix packages/adapters build && npm run --prefix packages/db build && npm run --prefix apps/web build && npm run --prefix apps/server build",
     "build:web": "npm run --prefix apps/web build",
     "build:server": "npm run --prefix apps/server build",
     "start": "npm run --prefix apps/web start",
