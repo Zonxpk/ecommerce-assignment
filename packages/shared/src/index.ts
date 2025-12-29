@@ -11,11 +11,13 @@ export type Marketplace = (typeof Marketplace)[keyof typeof Marketplace];
 // Product types
 export interface ProductData {
 	title: string;
+	description?: string;
 	imageUrl: string | null;
 	marketplace: Marketplace;
 	storeName: string;
 	price: number;
 	originalUrl: string;
+	productUrl?: string;
 }
 
 export interface FetchProductResult {

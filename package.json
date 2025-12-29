@@ -7,9 +7,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun run --cwd apps/web dev",
-    "build": "bun run --cwd apps/web build",
+    "dev": "concurrently \"bun run --cwd apps/web dev\" \"bun run --cwd apps/server dev\"",
+    "dev:web": "bun run --cwd apps/web dev",
+    "dev:server": "bun run --cwd apps/server dev",
+    "build": "bun run --cwd packages/db build && bun run --cwd apps/web build && bun run --cwd apps/server build",
+    "build:web": "bun run --cwd apps/web build",
+    "build:server": "bun run --cwd apps/server build",
     "start": "bun run --cwd apps/web start",
+    "start:server": "bun run --cwd apps/server start",
     "lint": "bun run --cwd apps/web lint",
     "test": "bun run --cwd apps/web test",
     "db:generate": "bun run --cwd apps/web db:generate",

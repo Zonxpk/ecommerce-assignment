@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "target": "ES2020",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -12,7 +13,11 @@
     "outDir": "./dist"
   },
   "include": [
-    "src/**/*"
+    "src/index.ts",
+    "src/types.ts",
+    "src/fetch.ts",
+    "src/lazada/**/*.ts",
+    "src/shopee/**/*.ts"
   ],
   "exclude": [
     "node_modules",

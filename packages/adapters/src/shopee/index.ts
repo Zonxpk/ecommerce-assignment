@@ -1,5 +1,5 @@
 import { FetchProductResult, Marketplace } from "shared";
-import { MarketplaceAdapter } from "./types";
+import { MarketplaceAdapter } from "../types";
 
 // Mock product data for Shopee
 const MOCK_SHOPEE_PRODUCTS: Record<string, FetchProductResult["data"]> = {

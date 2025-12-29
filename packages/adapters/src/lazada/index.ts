@@ -1,5 +1,5 @@
 import { FetchProductResult, Marketplace } from "shared";
-import { MarketplaceAdapter } from "./types";
+import { MarketplaceAdapter } from "../types";
 
 // Mock product data for Lazada
 const MOCK_LAZADA_PRODUCTS: Record<string, FetchProductResult["data"]> = {

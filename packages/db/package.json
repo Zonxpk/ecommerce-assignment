@@ -1,0 +1,21 @@
+{
+  "name": "@packages/db",
+  "version": "1.0.0",
+  "description": "Shared database client for ecommerce assignment",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@prisma/client": "5.22.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}
