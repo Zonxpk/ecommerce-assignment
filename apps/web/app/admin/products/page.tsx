@@ -122,7 +122,9 @@ export default function ProductsPage() {
 	function getBestOffer(offers: Offer[]): Offer | null {
 		if (offers.length === 0) return null;
 		return offers.reduce((min, offer) =>
-			parseFloat(String(offer.price)) < parseFloat(String(min.price)) ? offer : min,
+			parseFloat(String(offer.price)) < parseFloat(String(min.price))
+				? offer
+				: min,
 		);
 	}
 
