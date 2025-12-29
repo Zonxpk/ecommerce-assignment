@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { api } from "@/lib/eden";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -62,10 +63,9 @@ export default function CampaignsPage() {
 
 	async function fetchCampaigns() {
 		try {
-			const res = await fetch("/api/campaigns");
-			const json = await res.json();
-			if (json.success) {
-				setCampaigns(json.data);
+			const { data: json } = await api.campaigns.get();
+			if (json?.success) {
+				setCampaigns(json.data as Campaign[]);
 			}
 		} catch (error) {
 			console.error("Failed to fetch campaigns:", error);
@@ -86,14 +86,9 @@ export default function CampaignsPage() {
 		setIsSubmitting(true);
 
 		try {
-			const res = await fetch("/api/campaigns", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(newCampaign),
-			});
+			const { data: json } = await api.campaigns.post(newCampaign);
 
-			const json = await res.json();
-			if (json.success) {
+			if (json?.success) {
 				setIsAddDialogOpen(false);
 				setNewCampaign({
 					name: "",
@@ -107,7 +102,7 @@ export default function CampaignsPage() {
 				});
 				fetchCampaigns();
 			} else {
-				alert(json.error || "Failed to create campaign");
+				alert(json?.error || "Failed to create campaign");
 			}
 		} catch (error) {
 			console.error("Failed to create campaign:", error);
@@ -121,9 +116,8 @@ export default function CampaignsPage() {
 		if (!confirm("Are you sure you want to delete this campaign?")) return;
 
 		try {
-			const res = await fetch(`/api/campaigns/${id}`, { method: "DELETE" });
-			const json = await res.json();
-			if (json.success) {
+			const { data: json } = await api.campaigns({ id }).delete();
+			if (json?.success) {
 				fetchCampaigns();
 			}
 		} catch (error) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { api } from "@/lib/eden";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -35,7 +36,7 @@ interface Link {
 	shortCode: string;
 	marketplace: "LAZADA" | "SHOPEE";
 	targetUrl: string;
-	createdAt: string;
+	createdAt: Date | string;
 	product: {
 		id: string;
 		title: string;
@@ -84,10 +85,9 @@ export default function LinksPage() {
 
 	async function fetchLinks() {
 		try {
-			const res = await fetch("/api/links");
-			const json = await res.json();
-			if (json.success) {
-				setLinks(json.data);
+			const { data: json } = await api.links.get();
+			if (json?.success) {
+				setLinks(json.data as Link[]);
 			}
 		} catch (error) {
 			console.error("Failed to fetch links:", error);
@@ -96,10 +96,9 @@ export default function LinksPage() {
 
 	async function fetchProducts() {
 		try {
-			const res = await fetch("/api/products");
-			const json = await res.json();
-			if (json.success) {
-				setProducts(json.data);
+			const { data: json } = await api.products.get();
+			if (json?.success) {
+				setProducts(json.data as Product[]);
 			}
 		} catch (error) {
 			console.error("Failed to fetch products:", error);
@@ -108,10 +107,11 @@ export default function LinksPage() {
 
 	async function fetchCampaigns() {
 		try {
-			const res = await fetch("/api/campaigns?active=true");
-			const json = await res.json();
-			if (json.success) {
-				setCampaigns(json.data);
+			const { data: json } = await api.campaigns.get({
+				query: { active: "true" },
+			});
+			if (json?.success) {
+				setCampaigns(json.data as Campaign[]);
 			}
 		} catch (error) {
 			console.error("Failed to fetch campaigns:", error);
@@ -123,20 +123,19 @@ export default function LinksPage() {
 		setIsSubmitting(true);
 
 		try {
-			const res = await fetch("/api/links", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(newLink),
+			const { data: json } = await api.links.post({
+				productId: newLink.productId,
+				campaignId: newLink.campaignId,
+				marketplace: newLink.marketplace as "LAZADA" | "SHOPEE",
 			});
 
-			const json = await res.json();
-			if (json.success) {
+			if (json?.success) {
 				setIsAddDialogOpen(false);
 				setNewLink({ productId: "", campaignId: "", marketplace: "" });
 				setSelectedProduct(null);
 				fetchLinks();
 			} else {
-				alert(json.error || "Failed to create link");
+				alert(json?.error || "Failed to create link");
 			}
 		} catch (error) {
 			console.error("Failed to create link:", error);

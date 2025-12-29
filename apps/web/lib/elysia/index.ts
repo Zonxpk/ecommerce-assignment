@@ -1,5 +1,10 @@
-import { NextResponse } from "next/server";
+import { Elysia } from "elysia";
+import { productsRoutes } from "./products";
+import { campaignsRoutes } from "./campaigns";
+import { linksRoutes } from "./links";
+import { dashboardRoutes } from "./dashboard";
 
+// OpenAPI spec for documentation
 const openApiSpec = {
 	openapi: "3.0.0",
 	info: {
@@ -98,7 +103,6 @@ const openApiSpec = {
 		"/products/{id}/offers": {
 			get: {
 				summary: "Get offers for a product",
-				description: "List all marketplace offers with best price indicator",
 				parameters: [
 					{
 						name: "id",
@@ -108,7 +112,8 @@ const openApiSpec = {
 					},
 				],
 				responses: {
-					200: { description: "Successful response" },
+					200: { description: "Successful response with offers" },
+					404: { description: "No offers found" },
 				},
 			},
 		},
@@ -126,14 +131,19 @@ const openApiSpec = {
 						in: "query",
 						schema: { type: "integer", default: 10 },
 					},
-					{ name: "active", in: "query", schema: { type: "boolean" } },
+					{
+						name: "active",
+						in: "query",
+						schema: { type: "boolean" },
+						description: "Filter active campaigns only",
+					},
 				],
 				responses: {
 					200: { description: "Successful response" },
 				},
 			},
 			post: {
-				summary: "Create a new campaign",
+				summary: "Create new campaign",
 				requestBody: {
 					required: true,
 					content: {
@@ -144,21 +154,13 @@ const openApiSpec = {
 				},
 				responses: {
 					201: { description: "Campaign created" },
-					400: { description: "Invalid input" },
+					400: { description: "Invalid input or slug exists" },
 				},
 			},
 		},
 		"/campaigns/{id}": {
 			get: {
 				summary: "Get campaign by ID",
-				parameters: [
-					{
-						name: "id",
-						in: "path",
-						required: true,
-						schema: { type: "string" },
-					},
-				],
 				responses: {
 					200: { description: "Successful response" },
 					404: { description: "Campaign not found" },
@@ -166,28 +168,12 @@ const openApiSpec = {
 			},
 			put: {
 				summary: "Update campaign",
-				parameters: [
-					{
-						name: "id",
-						in: "path",
-						required: true,
-						schema: { type: "string" },
-					},
-				],
 				responses: {
 					200: { description: "Campaign updated" },
 				},
 			},
 			delete: {
 				summary: "Delete campaign",
-				parameters: [
-					{
-						name: "id",
-						in: "path",
-						required: true,
-						schema: { type: "string" },
-					},
-				],
 				responses: {
 					200: { description: "Campaign deleted" },
 				},
@@ -195,13 +181,10 @@ const openApiSpec = {
 		},
 		"/links": {
 			get: {
-				summary: "List affiliate links",
+				summary: "List all affiliate links",
 				parameters: [
-					{
-						name: "page",
-						in: "query",
-						schema: { type: "integer", default: 1 },
-					},
+					{ name: "page", in: "query", schema: { type: "integer" } },
+					{ name: "limit", in: "query", schema: { type: "integer" } },
 					{ name: "campaignId", in: "query", schema: { type: "string" } },
 					{ name: "productId", in: "query", schema: { type: "string" } },
 				],
@@ -321,6 +304,15 @@ const openApiSpec = {
 	},
 };
 
-export async function GET() {
-	return NextResponse.json(openApiSpec);
-}
+// Create the main Elysia app with /api prefix for Next.js integration
+export const app = new Elysia({ prefix: "/api" })
+	// Docs endpoint
+	.get("/docs", () => openApiSpec)
+	// Use route modules
+	.use(productsRoutes)
+	.use(campaignsRoutes)
+	.use(linksRoutes)
+	.use(dashboardRoutes);
+
+// Export type for Eden client
+export type App = typeof app;

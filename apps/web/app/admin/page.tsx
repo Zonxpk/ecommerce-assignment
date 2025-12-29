@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { api } from "@/lib/eden";
 import {
 	Card,
 	CardContent,
@@ -74,10 +75,9 @@ export default function AdminDashboard() {
 
 	async function fetchDashboard() {
 		try {
-			const res = await fetch("/api/dashboard?days=30");
-			const json = await res.json();
-			if (json.success) {
-				setData(json.data);
+			const { data: json } = await api.dashboard.get({ query: { days: "30" } });
+			if (json?.success) {
+				setData(json.data as DashboardData);
 			}
 		} catch (error) {
 			console.error("Failed to fetch dashboard:", error);

@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run --prefix packages/shared build && npm run --prefix packages/adapters build && npm run --prefix apps/web build",
-  "outputDirectory": "apps/web/.next",
-  "installCommand": "npm install",
+  "buildCommand": "cd ../.. && npm run --prefix packages/shared build && npm run --prefix packages/adapters build && npm run --prefix apps/web build",
+  "outputDirectory": ".next",
+  "installCommand": "cd ../.. && npm install",
   "framework": "nextjs"
 }

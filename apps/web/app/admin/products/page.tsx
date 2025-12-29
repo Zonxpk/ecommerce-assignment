@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { api } from "@/lib/eden";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -32,14 +33,15 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, Trash2, ExternalLink, Award } from "lucide-react";
 import { formatPrice } from "@/lib/utils";
+import type { Decimal } from "@prisma/client/runtime/library";
 
 interface Offer {
 	id: string;
 	marketplace: "LAZADA" | "SHOPEE";
 	storeName: string;
-	price: string;
+	price: string | number | Decimal;
 	originalUrl: string;
-	lastCheckedAt: string;
+	lastCheckedAt: Date | string;
 }
 
 interface Product {
@@ -68,10 +70,9 @@ export default function ProductsPage() {
 
 	async function fetchProducts() {
 		try {
-			const res = await fetch("/api/products");
-			const json = await res.json();
-			if (json.success) {
-				setProducts(json.data);
+			const { data: json } = await api.products.get();
+			if (json?.success) {
+				setProducts(json.data as Product[]);
 			}
 		} catch (error) {
 			console.error("Failed to fetch products:", error);
@@ -85,19 +86,17 @@ export default function ProductsPage() {
 		setIsSubmitting(true);
 
 		try {
-			const res = await fetch("/api/products", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(newProduct),
+			const { data: json } = await api.products.post({
+				url: newProduct.url,
+				marketplace: newProduct.marketplace as "LAZADA" | "SHOPEE",
 			});
 
-			const json = await res.json();
-			if (json.success) {
+			if (json?.success) {
 				setIsAddDialogOpen(false);
 				setNewProduct({ url: "", marketplace: "LAZADA" });
 				fetchProducts();
 			} else {
-				alert(json.error || "Failed to add product");
+				alert(json?.error || "Failed to add product");
 			}
 		} catch (error) {
 			console.error("Failed to add product:", error);
@@ -111,9 +110,8 @@ export default function ProductsPage() {
 		if (!confirm("Are you sure you want to delete this product?")) return;
 
 		try {
-			const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
-			const json = await res.json();
-			if (json.success) {
+			const { data: json } = await api.products({ id }).delete();
+			if (json?.success) {
 				fetchProducts();
 			}
 		} catch (error) {
@@ -124,7 +122,7 @@ export default function ProductsPage() {
 	function getBestOffer(offers: Offer[]): Offer | null {
 		if (offers.length === 0) return null;
 		return offers.reduce((min, offer) =>
-			parseFloat(offer.price) < parseFloat(min.price) ? offer : min,
+			parseFloat(String(offer.price)) < parseFloat(String(min.price)) ? offer : min,
 		);
 	}
 
