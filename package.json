@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "bun run --cwd apps/web dev",
-    "build": "bun run --cwd apps/web build",
+    "build": "bun run --cwd packages/shared build && bun run --cwd packages/adapters build && bun run --cwd apps/web build",
     "start": "bun run --cwd apps/web start",
     "lint": "bun run --cwd apps/web lint",
     "test": "bun run --cwd apps/web test",
