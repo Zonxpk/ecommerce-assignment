@@ -12,7 +12,7 @@ This is the Express.js backend server for the ecommerce affiliate project. It ha
 ## Setup
 
 ### Prerequisites
-- Node.js 18+ (or Bun)
+- Node.js 18+
 - PostgreSQL database
 - Environment variables configured
 
@@ -20,7 +20,7 @@ This is the Express.js backend server for the ecommerce affiliate project. It ha
 
 ```bash
 # Install dependencies (from root workspace)
-bun install
+npm install
 
 # Copy environment file
 cp apps/server/.env.example apps/server/.env
@@ -45,13 +45,13 @@ NODE_ENV=development
 
 ```bash
 # From root directory - run both Next.js and Express
-bun run dev
+npm run dev
 
 # Or run just the server
-bun run dev:server
+npm run dev:server
 
 # From server directory
-bun run dev
+npm run dev
 ```
 
 The server will start on `http://localhost:3001`
@@ -71,13 +71,13 @@ Response:
 
 ```bash
 # Build all packages (from root)
-bun run build
+npm run build
 
 # Or build just the server
-bun run build:server
+npm run build:server
 
 # Start production server
-bun run start:server
+npm run start:server
 ```
 
 ## API Routes
@@ -135,9 +135,9 @@ Models available:
 
 For database migrations, use the root workspace commands:
 ```bash
-bun run db:push
-bun run db:migrate
-bun run db:seed
+npm run db:push
+npm run db:migrate
+npm run db:seed
 ```
 
 ## Marketplace Adapters
@@ -180,7 +180,7 @@ The server includes request/response logging via Express. For monitoring in prod
 ## Next Steps
 
 1. Configure environment variables
-2. Install dependencies: `bun install`
-3. Run database migrations: `bun run db:push`
-4. Start dev server: `bun run dev:server`
+2. Install dependencies: `npm install`
+3. Run database migrations: `npm run db:push`
+4. Start dev server: `npm run dev:server`
 5. Test health endpoint: `curl http://localhost:3001/health`

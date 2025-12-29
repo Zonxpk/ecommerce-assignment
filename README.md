@@ -80,7 +80,8 @@ ecommerce-affiliate/
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) (v1.0+)
+- [Node.js](https://nodejs.org) (v18+)
+- [npm](https://www.npmjs.com/) (v9+)
 - [Docker](https://www.docker.com/) (for local PostgreSQL)
 
 ### Setup
@@ -89,7 +90,7 @@ ecommerce-affiliate/
    ```bash
    git clone https://github.com/your-repo/ecommerce-affiliate.git
    cd ecommerce-affiliate
-   bun install
+   npm install
    ```
 
 2. **Start the database**
@@ -107,13 +108,13 @@ ecommerce-affiliate/
 
 4. **Initialize database**
    ```bash
-   bun run db:push      # Create tables
-   bun run db:seed      # Seed sample data
+   npm run db:push      # Create tables
+   npm run db:seed      # Seed sample data
    ```
 
 5. **Start development server**
    ```bash
-   bun run dev
+   npm run dev
    ```
 
 6. **Open the app**
@@ -149,10 +150,10 @@ ecommerce-affiliate/
 
 ```bash
 # Run adapter tests
-cd packages/adapters && bun test
+cd packages/adapters && npm test
 
 # Run web app tests
-cd apps/web && bun run test
+cd apps/web && npm run test
 ```
 
 ## 🛠️ Tech Stack
@@ -164,7 +165,7 @@ cd apps/web && bun run test
 | **Database**        | PostgreSQL + Prisma ORM                       |
 | **Validation**      | Zod                                           |
 | **Charts**          | Recharts                                      |
-| **Package Manager** | Bun                                           |
+| **Package Manager** | npm                                           |
 | **CI/CD**           | GitHub Actions                                |
 
 ## 🔮 Future Improvements

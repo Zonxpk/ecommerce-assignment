@@ -64,9 +64,9 @@ cd apps/server
 
 ### 1. Install Dependencies
 ```bash
-bun install
-# or
 npm install
+# or
+yarn install
 ```
 
 - [ ] Command completes without errors
@@ -86,7 +86,7 @@ cp .env.example .env
 ### 3. Run Development Server
 ```bash
 # From root directory
-bun run dev:server
+npm run dev:server
 ```
 
 Watch for output:
@@ -177,7 +177,7 @@ curl -H "Origin: http://localhost:3000" http://localhost:3001/health
 ### TypeScript Compilation
 ```bash
 cd apps/server
-bun run build
+npm run build
 ```
 - [ ] Compiles without errors
 - [ ] No TypeScript errors in IDE
@@ -204,7 +204,7 @@ Total: 8+ endpoints
 ### Test Database Connection
 ```bash
 # From apps/server directory
-bun run dev:server
+npm run dev:server
 ```
 
 Monitor console for:
@@ -244,13 +244,13 @@ Monitor console for:
 
 ### Install concurrently (if not installed)
 ```bash
-bun add -d concurrently
+npm install -D concurrently
 ```
 - [ ] Package installed successfully
 
 ### Run Both Servers
 ```bash
-bun run dev
+npm run dev
 ```
 
 Should see output:
@@ -346,12 +346,12 @@ kill -9 <PID>
 ### Module Not Found Errors
 ```bash
 # Reinstall dependencies
-bun install
+npm install
 
 # Clear cache
 rm -rf node_modules
 rm -rf apps/server/node_modules
-bun install
+npm install
 ```
 
 ### TypeScript Errors
@@ -369,17 +369,17 @@ Run this final check:
 
 ```bash
 # 1. Install
-bun install
+npm install
 
 # 2. Check structure
 ls -la apps/server/src/
 ls -la packages/db/src/
 
 # 3. Build
-cd apps/server && bun run build
+cd apps/server && npm run build
 
 # 4. Run server
-bun run dev:server
+npm run dev:server
 
 # 5. In another terminal
 curl http://localhost:3001/health

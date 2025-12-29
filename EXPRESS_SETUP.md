@@ -5,7 +5,7 @@
 ### 1. **Express.js Application Structure** (`apps/server/`)
 - Created complete Express server with TypeScript configuration
 - Organized into modular structure with routes, middleware, types, and utilities
-- Configured for npm/bun workspace integration
+- Configured for npm workspace integration
 
 **Files Created:**
 - `apps/server/package.json` - Dependencies and scripts
@@ -126,9 +126,9 @@ ecommerce-assignment/
 
 ### Install Dependencies
 ```bash
-bun install
-# or
 npm install
+# or
+yarn install
 ```
 
 ### Configure Environment
@@ -140,11 +140,11 @@ cp apps/server/.env.example apps/server/.env
 ### Run Development
 ```bash
 # Run both Next.js (port 3000) and Express (port 3001)
-bun run dev
+npm run dev
 
 # Or run individually
-bun run dev:web     # Next.js only
-bun run dev:server  # Express only
+npm run dev:web     # Next.js only
+npm run dev:server  # Express only
 ```
 
 ### Test Endpoints
@@ -172,7 +172,7 @@ curl "http://localhost:3001/api/products?page=1&limit=10"
 
 1. Add `concurrently` to root dependencies for dev command:
    ```bash
-   bun add -d concurrently
+   npm install -D concurrently
    ```
 
 2. Configure Docker setup (see `infra/docker-compose.yml`):
@@ -208,4 +208,4 @@ All dependencies are compatible with existing project packages.
 
 ---
 
-Express.js is now fully integrated and ready to handle API routes! Start with `bun run dev` to run both servers.
+Express.js is now fully integrated and ready to handle API routes! Start with `npm run dev` to run both servers.

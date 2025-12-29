@@ -14,27 +14,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
-        run: bun install
+        run: npm install
 
       - name: Generate Prisma Client
-        run: bun run db:generate
+        run: npm run db:generate
         working-directory: apps/web
 
       - name: Lint
-        run: bun run lint
+        run: npm run lint
 
       - name: Run adapter tests
-        run: bun test
+        run: npm test
         working-directory: packages/adapters
 
       - name: Run web tests
-        run: bun run test
+        run: npm run test
         working-directory: apps/web
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db"
@@ -47,19 +48,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
-        run: bun install
+        run: npm install
 
       - name: Generate Prisma Client
-        run: bun run db:generate
+        run: npm run db:generate
         working-directory: apps/web
 
       - name: Build
-        run: bun run build
+        run: npm run build
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db"

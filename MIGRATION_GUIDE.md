@@ -278,7 +278,7 @@ app.use(cors({
 
 ### Local Development
 ```bash
-bun run dev  # Runs both Next.js (3000) and Express (3001)
+npm run dev  # Runs both Next.js (3000) and Express (3001)
 ```
 
 ### Docker Compose

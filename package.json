@@ -7,19 +7,23 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently \"bun run --cwd apps/web dev\" \"bun run --cwd apps/server dev\"",
-    "dev:web": "bun run --cwd apps/web dev",
-    "dev:server": "bun run --cwd apps/server dev",
-    "build": "bun run --cwd packages/db build && bun run --cwd apps/web build && bun run --cwd apps/server build",
-    "build:web": "bun run --cwd apps/web build",
-    "build:server": "bun run --cwd apps/server build",
-    "start": "bun run --cwd apps/web start",
-    "start:server": "bun run --cwd apps/server start",
-    "lint": "bun run --cwd apps/web lint",
-    "test": "bun run --cwd apps/web test",
-    "db:generate": "bun run --cwd apps/web db:generate",
-    "db:push": "bun run --cwd apps/web db:push",
-    "db:migrate": "bun run --cwd apps/web db:migrate",
-    "db:seed": "bun run --cwd apps/web db:seed"
+    "dev": "concurrently \"npm run --prefix apps/web dev\" \"npm run --prefix apps/server dev\"",
+    "dev:web": "npm run --prefix apps/web dev",
+    "dev:server": "npm run --prefix apps/server dev",
+    "build": "npm run --prefix packages/db build && npm run --prefix apps/web build && npm run --prefix apps/server build",
+    "build:web": "npm run --prefix apps/web build",
+    "build:server": "npm run --prefix apps/server build",
+    "start": "npm run --prefix apps/web start",
+    "start:server": "npm run --prefix apps/server start",
+    "lint": "npm run --prefix apps/web lint",
+    "test": "npm run --prefix apps/web test",
+    "db:generate": "npm run --prefix apps/web db:generate",
+    "db:push": "npm run --prefix apps/web db:push",
+    "db:migrate": "npm run --prefix apps/web db:migrate",
+    "db:seed": "npm run --prefix apps/web db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "tsx": "^4.21.0"
   }
 }

@@ -68,7 +68,7 @@
 └─────────────────────────────────────────────────────────────────┘
          ↓                                           ↓
     Marketplace                              Shared Dependencies
-    Adapters                                (Bun Workspace)
+    Adapters                                (npm Workspace)
     (Lazada/Shopee)                              ↓
          ↓                           ┌───────────────────────────┐
          ↓                           │ Shared Packages          │

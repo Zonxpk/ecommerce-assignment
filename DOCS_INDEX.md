@@ -315,8 +315,8 @@ Before getting started:
 - [ ] Read EXPRESS_QUICK_REF.md (5 min)
 - [ ] Read EXPRESS_SETUP.md (15 min)
 - [ ] Have DATABASE_URL ready
-- [ ] Have Bun or Node.js installed
-- [ ] Ready to run `bun install`
+- [ ] Have Node.js and npm installed
+- [ ] Ready to run `npm install`
 
 After setup:
 - [ ] Follow VERIFICATION_CHECKLIST.md

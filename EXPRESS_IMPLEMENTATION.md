@@ -55,7 +55,7 @@
 ### 1. Express.js Server Core
 - **Framework:** Express.js v4.18.2
 - **Language:** TypeScript v5.7.2
-- **Runtime:** Node.js with Bun/tsx support
+- **Runtime:** Node.js with tsx support
 - **Port:** 3001 (configurable via PORT env var)
 
 ### 2. API Routes (9 endpoints)
@@ -110,7 +110,7 @@
 - Workspace package references (workspace:*)
 - Shared TypeScript configuration inheritance
 - Root-level scripts manage both servers
-- Bun package manager handles dependencies
+- npm package manager handles dependencies
 
 ### With Docker
 - Ready for containerization
@@ -160,24 +160,24 @@ Dependencies Added:
 
 ```bash
 # 1. Install
-bun install
+npm install
 
 # 2. Configure
 cp apps/server/.env.example apps/server/.env
 # Edit DATABASE_URL
 
 # 3. Run development
-bun run dev              # Both servers
-bun run dev:server      # Express only
+npm run dev              # Both servers
+npm run dev:server      # Express only
 
 # 4. Test
 curl http://localhost:3001/health
 
 # 5. Build production
-bun run build:server
+npm run build:server
 
 # 6. Start production
-bun run start:server
+npm run start:server
 ```
 
 ---
@@ -216,7 +216,7 @@ User edits code
     ↓
 File saved
     ↓
-Bun watches with tsx
+tsx watches for changes
     ↓
 Server hot-reloads
     ↓
@@ -335,4 +335,4 @@ For questions about:
 
 **Status: READY FOR TESTING** 🎉
 
-All files created successfully. Next step: `bun install` then `bun run dev:server`
+All files created successfully. Next step: `npm install` then `npm run dev:server`

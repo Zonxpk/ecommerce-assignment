@@ -19,14 +19,14 @@
 
 ```bash
 # Install dependencies
-bun install
+npm install
 
 # Configure database
 cp apps/server/.env.example apps/server/.env
 # Edit DATABASE_URL in apps/server/.env
 
 # Run both servers
-bun run dev
+npm run dev
 
 # Test health endpoint
 curl http://localhost:3001/health
@@ -91,12 +91,12 @@ GET /health
 
 ```bash
 # From root directory
-bun run dev              # Both Next.js & Express
-bun run dev:web         # Next.js only (port 3000)
-bun run dev:server      # Express only (port 3001)
-bun run build           # Build all packages
-bun run build:server    # Build Express only
-bun run start:server    # Run production Express
+npm run dev              # Both Next.js & Express
+npm run dev:web         # Next.js only (port 3000)
+npm run dev:server      # Express only (port 3001)
+npm run build           # Build all packages
+npm run build:server    # Build Express only
+npm run start:server    # Run production Express
 ```
 
 ---
@@ -156,9 +156,9 @@ import prisma from "@packages/db";
 
 Database migrations still use Next.js commands:
 ```bash
-bun run db:push
-bun run db:migrate
-bun run db:seed
+npm run db:push
+npm run db:migrate
+npm run db:seed
 ```
 
 ---
@@ -221,15 +221,15 @@ A: Use monorepo packages:
 A: Already handled! Express has `cors()` middleware enabled.
 
 **Q: Can I run just the Express server?**  
-A: Yes! Use `bun run dev:server` (port 3001)
+A: Yes! Use `npm run dev:server` (port 3001)
 
 ---
 
 ## 🎯 Next Steps
 
-1. ✅ Install: `bun install`
+1. ✅ Install: `npm install`
 2. ✅ Configure: Update `.env` files
-3. ✅ Test: `bun run dev` and visit endpoints
+3. ✅ Test: `npm run dev` and visit endpoints
 4. ⏭️ Deploy: Push to production with Docker Compose
 
 ---

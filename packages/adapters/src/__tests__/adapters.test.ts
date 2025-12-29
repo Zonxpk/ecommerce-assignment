@@ -1,7 +1,6 @@
-import { describe, it, expect } from "bun:test";
-import { lazadaAdapter } from "../src/lazada";
-import { shopeeAdapter } from "../src/shopee";
-import { fetchProductData, detectMarketplace } from "../src/fetch";
+import { lazadaAdapter } from "../lazada";
+import { shopeeAdapter } from "../shopee";
+import { fetchProductData, detectMarketplace } from "../fetch";
 import { Marketplace } from "shared";
 
 describe("Lazada Adapter", () => {
