@@ -38,7 +38,7 @@ router.get(
 		});
 
 		// Get link details for campaign breakdown
-		const linkIds = clicksByCampaign.map((c) => c.linkId);
+		const linkIds = clicksByCampaign.map((c: { linkId: string }) => c.linkId);
 		const links = await prisma.link.findMany({
 			where: { id: { in: linkIds } },
 			include: { campaign: true, product: true },
@@ -51,7 +51,7 @@ router.get(
 		>();
 
 		for (const click of clicksByCampaign) {
-			const link = links.find((l) => l.id === click.linkId);
+			const link = links.find((l: { id: string }) => l.id === click.linkId);
 			if (link) {
 				const existing = campaignStats.get(link.campaignId);
 				if (existing) {
@@ -137,21 +137,30 @@ router.get(
 				}),
 			),
 			clicksByMarketplace,
-			topProducts: topProducts.map((link) => ({
-				linkId: link.id,
-				productId: link.product.id,
-				productTitle: link.product.title,
-				productImage: link.product.imageUrl,
-				clicks: link._count.clicks,
-				marketplace: link.marketplace,
-			})),
-			clicksOverTime: clicksOverTime.map((row) => ({
-				date:
-					row.date instanceof Date
-						? row.date.toISOString().split("T")[0]
-						: String(row.date),
-				clicks: Number(row.count),
-			})),
+			topProducts: topProducts.map(
+				(link: {
+					id: string;
+					product: { id: string; title: string; imageUrl: string | null };
+					_count: { clicks: number };
+					marketplace: string;
+				}) => ({
+					linkId: link.id,
+					productId: link.product.id,
+					productTitle: link.product.title,
+					productImage: link.product.imageUrl,
+					clicks: link._count.clicks,
+					marketplace: link.marketplace,
+				}),
+			),
+			clicksOverTime: clicksOverTime.map(
+				(row: { date: Date; count: bigint }) => ({
+					date:
+						row.date instanceof Date
+							? row.date.toISOString().split("T")[0]
+							: String(row.date),
+					clicks: Number(row.count),
+				}),
+			),
 		});
 	}),
 );
