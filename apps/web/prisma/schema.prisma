@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Marketplace {
+  LAZADA
+  SHOPEE
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  title     String
+  imageUrl  String?  @map("image_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  offers Offer[]
+  links  Link[]
+
+  @@map("products")
+}
+
+model Offer {
+  id            String      @id @default(cuid())
+  productId     String      @map("product_id")
+  marketplace   Marketplace
+  storeName     String      @map("store_name")
+  price         Decimal
+  originalUrl   String      @map("original_url")
+  lastCheckedAt DateTime    @default(now()) @map("last_checked_at")
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, marketplace])
+  @@map("offers")
+}
+
+model Campaign {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  utmCampaign String    @map("utm_campaign")
+  utmSource   String?   @map("utm_source")
+  utmMedium   String?   @map("utm_medium")
+  startAt     DateTime? @map("start_at")
+  endAt       DateTime? @map("end_at")
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  links Link[]
+
+  @@map("campaigns")
+}
+
+model Link {
+  id          String      @id @default(cuid())
+  shortCode   String      @unique @map("short_code")
+  productId   String      @map("product_id")
+  campaignId  String      @map("campaign_id")
+  marketplace Marketplace
+  targetUrl   String      @map("target_url")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  product  Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  clicks   Click[]
+
+  @@unique([productId, campaignId, marketplace])
+  @@map("links")
+}
+
+model Click {
+  id        String   @id @default(cuid())
+  linkId    String   @map("link_id")
+  timestamp DateTime @default(now())
+  referrer  String?
+  userAgent String?  @map("user_agent")
+  ipHash    String?  @map("ip_hash")
+
+  link Link @relation(fields: [linkId], references: [id], onDelete: Cascade)
+
+  @@index([linkId, timestamp])
+  @@map("clicks")
+}
